@@ -12,7 +12,7 @@ Because this program relies on Plex webhooks, unfortunately it is only usable wi
 
 This program is currently designed for music use, but it can easily be modified to suit the needs of anything that triggers a Plex webhook.
 
-## Setup
+## Set up
 
 For instructions on how to set up Plexcord, please see the [wiki](https://github.com/htbrown/plexcord/wiki).
 
