@@ -10,8 +10,6 @@ const log = new Journl(),
 
 const rpc = new discordRpc.Client({ transport: 'ipc' });
 
-let playId;
-
 app.post("/webhook", upload.single("thumb"), (req, res) => {
     let payload = JSON.parse(req.body.payload);
     log.info(`Payload received for ${payload.event} from client ${payload.Player.uuid}`);
