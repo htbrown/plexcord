@@ -41,9 +41,11 @@ app.post("/webhook", upload.single("thumb"), (req, res) => {
                 instance: false
             })
             log.success("Paused.")
-        } else {
+        } else if (payload.event === "media.stop") {
             rpc.clearActivity();
             log.success("Stopped.")
+        } else {
+            log.info("Ignored event. Skipping...")
         }
     } else {
         log.success("Ignored client. Skipping...")
