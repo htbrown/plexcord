@@ -1,3 +1,4 @@
+![Plexcord](https://i.imgur.com/QNazRW6.png)
 # Plexcord
 
 ![license](https://img.shields.io/github/license/htbrown/plexcord?style=flat-square) ![issues](https://img.shields.io/github/issues/htbrown/plexcord?style=flat-square) ![version](https://img.shields.io/github/package-json/v/htbrown/plexcord?style=flat-square)
@@ -5,6 +6,8 @@
 Simple Discord rich presence for Plex.
 
 > ⚠️ WARNING: This program works well with the regular Plex application but you may find that there are issues when using Plexamp. This is a problem with the way Plexamp handles webhooks.
+
+![Example Presence](https://i.imgur.com/X8k7i3n.png)
 
 ## Limitations
 
