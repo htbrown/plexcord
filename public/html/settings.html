@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Plexcord</title>
+    <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <aside class="menu">
+        <img src="../../assets/plexcord.png" alt="Plexcord" width="50" height="50">
+        <ul class="menu-list">
+            <li>
+                <a href="./settings.html" class="is-active">Settings</a>
+                <ul>
+                    <li><a href="./clientCheck.html">Client Check</a></li>
+                    <li><a href="./plexSetup.html">Plex Setup</a></li>
+                </ul>
+            </li>
+            <li><a href="./about.html">About</a></li>
+            <li><a onclick="quit()">Quit</a></li>
+        </ul>
+    </aside>
+    <main>
+        <section class="hero is-small">
+            <div class="hero-body">
+                <h1 class="title">Settings</h1>
+                <button class="button is-success" id="save" onclick="save()">Save</button>
+                <button class="button is-danger is-light" id="quit" onclick="quit()">Quit Plexcord</button>
+            </div>
+        </section>
+        <section class="section">
+            <div class="field">
+                <label class="label">Launch at Startup</label>
+                <input type="checkbox" id="startup-checkbox">
+            </div>
+            <div class="field">
+                <label class="label">Style</label>
+                <div class="control">
+                    <div class="select">
+                        <select id="style" class="select">
+                            <option value="music">Music</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="help">The kind of content you want the rich presence to suit.</p>
+            </div>
+            <div class="field">
+                <label class="label">Plex Username</label>
+                <div class="control">
+                    <input class="input" type="text" id="plex-username" placeholder="Plex Username">
+                </div>
+                <p class="help">The username of the user you want to track.</p>
+            </div>
+            <div class="field">
+                <label class="label">Plex Client ID</label>
+                <div class="control">
+                    <input class="input" type="text" id="plex-client-id" placeholder="Client ID">
+                </div>
+                <p class="help">The ID of the client you want to track. This can be found by <a href="./clientCheck.html">using this tool</a>.</p>
+            </div>
+            <div class="field">
+                <label class="label">Pause Timeout</label>
+                <div class="control">
+                    <input class="input" type="number" id="pause-timeout" placeholder="0">
+                </div>
+                <p class="help">The amount of time to wait before removing the rich presence when paused. Set to 0 to disable.</p>
+            </div>
+            <a onclick="resetDb()" id="reset">Click here to reset the database.</a>
+        </section>
+    </main>
+    <script src="../js/index.js"></script>
+    <script src="../js/settingsRenderer.js"></script>
+</body>
+</html>

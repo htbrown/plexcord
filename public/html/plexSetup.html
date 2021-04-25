@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plex Setup - Plexcord</title>
+    <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <aside class="menu">
+        <img src="../../assets/plexcord.png" alt="Plexcord" width="50" height="50">
+        <ul class="menu-list">
+            <li>
+                <a href="./settings.html">Settings</a>
+                <ul>
+                    <li><a href="./clientCheck.html">Client Check</a></li>
+                    <li><a href="./plexSetup.html" class="is-active">Plex Setup</a></li>
+                </ul>
+            </li>
+            <li><a href="./about.html">About</a></li>
+            <li><a onclick="quit()">Quit</a></li>
+        </ul>
+    </aside>
+    <main>
+        <section class="hero is-small">
+            <div class="hero-body">
+                <h1 class="title">Plex Setup</h1>
+            </div>
+        </section>
+        <section class="section">
+            <p>
+                Setting up Plex to work with Plexcord is easy. Simply follow the steps below.
+            </p>
+        </section>
+        <section class="section">
+            <p>
+                Your Plexcord install is running at the following address:
+            </p>
+            <h3 class="subtitle is-5"><span id="plexcord-ip"></span></h3>
+        </section>
+        <section class="section">
+            <h2 class="subtitle">1. Add the Plexcord webhook to Plex.</h2>
+            <p>
+                Unfortunately, Plex have limited the use of webhooks to Plex Pass users only. Plexcord only works with a valid Plex Pass subscription.
+            </p>
+            <p>
+                Follow <a href="https://support.plex.tv/articles/115002267687-webhooks/">Plex's webhook guide</a> to add the URL shown above as a webhook. If you aren't running your Plex server on the same network, this URL may vary and you may need to setup port forwarding on your router.
+            </p>
+        </section>
+        <section class="section">
+            <h2 class="subtitle">2. Test Your Setup</h2>
+            <p>
+                Test your setup using the <a href="./clientCheck.html">client checking utility</a>. If an ID for a client shows up, all should be good and you are done!
+            </p>
+            <p>
+                If a client ID doesn't show up, make sure you have followed step 1 correctly and have entered the correct IP address.
+            </p>
+        </section>
+    </main>
+    <script src="../js/index.js"></script>
+    <script src="../js/plexSetupRenderer.js"></script>
+</body>
+</html>

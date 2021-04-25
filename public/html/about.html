@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Plexcord</title>
+    <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <aside class="menu">
+        <img src="../../assets/plexcord.png" alt="Plexcord" width="50" height="50">
+        <ul class="menu-list">
+            <li>
+                <a href="./settings.html">Settings</a>
+            </li>
+            <li><a href="./about.html" class="is-active">About</a></li>
+            <li><a onclick="quit()">Quit</a></li>
+        </ul>
+    </aside>
+    <main>
+        <section class="hero is-small">
+            <div class="hero-body">
+                <h1 class="title">About</h1>
+                <a class="button is-link" href="https://github.com/htbrown/plexcord">GitHub</a>
+            </div>
+        </section>
+        <section class="section">
+            <p>
+                <strong>Plexcord</strong> v<span id="plexcord-version"></span> by <a href="https://htbrown.com">HTBrown</a>.
+            </p>
+            <p>
+                Licensed under the MIT licence. See the GitHub Licence file for more details.
+            </p>
+        </section>
+    </main>
+    <script src="../js/aboutRenderer.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+</html>

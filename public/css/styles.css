@@ -1,0 +1,39 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    background-color: rgb(245, 245, 245);
+    min-height: 100vh;
+}
+
+.hero {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25%;
+    padding: 25px;
+    height: 100%;
+    background-color: white;
+}
+
+.menu img {
+    margin-bottom: 10px;
+}
+
+main {
+    margin-left: 25%;
+    height: 100%;
+}
+
+.field {
+    padding-bottom: 30px;
+}

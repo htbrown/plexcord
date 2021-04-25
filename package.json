@@ -1,0 +1,19 @@
+{
+  "name": "plexcord",
+  "version": "2.0.0",
+  "description": "Discord rich presence for Plex.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "HTBrown",
+  "license": "MIT",
+  "dependencies": {
+    "discord-rpc": "^3.2.0",
+    "electron": "^12.0.5",
+    "electron-store": "^8.0.0",
+    "express": "^4.17.1",
+    "journl": "^1.0.7",
+    "multer": "^1.4.2"
+  }
+}
