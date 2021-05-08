@@ -2,7 +2,7 @@ module.exports.start = (log, db) => {
     const express = require('express');
     const app = express();
     const discordRpc = require('discord-rpc');
-    const { ipcMain } = require('electron');
+    const { ipcMain, BrowserWindow } = require('electron');
     
     const multer = require('multer'),
         upload = multer({ dest: './temp' });
@@ -31,6 +31,8 @@ module.exports.start = (log, db) => {
     app.post('/webhook', upload.single('thumb'), (req, res) => {
         let payload = JSON.parse(req.body.payload);
         log.info(`Payload received for ${payload.event} from client ${payload.Player.uuid}.`);
+        db.set('recent-id', payload.Player.uuid);
+        ipcMain.emit('recent-id');
 
         if (!db.get('plex-username') || !db.get('plex-client-id') || !db.get('style') || !db.get('startup') || !db.get('pause-timeout')) {
             ipcMain.emit('invalid-config');

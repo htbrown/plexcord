@@ -14,12 +14,6 @@ const resetSaveButton = () => {
     }, 5000)
 }
 
-ipcRenderer.on('save-reply', (event, args) => {
-    saveButton.classList.remove('is-loading');
-    saveButton.innerHTML = 'Saved'
-    resetSaveButton();
-})
-
 const save = () => {
     saveButton.classList.add('is-loading');
 
@@ -32,13 +26,15 @@ const save = () => {
         return;
     }
 
-    ipcRenderer.send('save', {
-        startup: startupCheckbox.checked,
-        style: presenceStyle.value,
-        username: plexUsername.value,
-        clientId: plexClientId.value,
-        pauseTimeout: pauseTimeout.value
-    })
+    ipcRenderer.send('save', { key: 'startup', value: startupCheckbox.checked });
+    ipcRenderer.send('save', { key: 'style', value: presenceStyle.value });
+    ipcRenderer.send('save', { key: 'plex-username', value: plexUsername.value });
+    ipcRenderer.send('save', { key: 'plex-client-id', value: plexClientId.value });
+    ipcRenderer.send('save', { key: 'pause-timeout', value: pauseTimeout.value });
+
+    saveButton.classList.remove('is-loading');
+    saveButton.innerHTML = 'Saved'
+    resetSaveButton();
 }
 
 ipcRenderer.on('reset-db-reply', (event, args) => {

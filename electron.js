@@ -1,10 +1,10 @@
 const { app, BrowserWindow, Menu, Tray, ipcMain, dialog, Notification } = require('electron');
 const ex = require('./express');
 
-let win;
+let settingsWin;
 
 const settingsWindow = () => {
-    win = new BrowserWindow({
+    settingsWin = new BrowserWindow({
         width: 1000,
         height: 800,
         resizable: false,
@@ -16,7 +16,33 @@ const settingsWindow = () => {
         }
     });
 
-    win.loadURL(`file://${__dirname}/public/html/settings.html`);
+    settingsWin.loadURL(`file://${__dirname}/public/html/settings.html`);
+}
+
+let startupWin;
+let startupWinOpen = false;
+
+const startupWindow = () => {
+    startupWin = new BrowserWindow({
+        width: 600,
+        height: 600,
+        resizable: false,
+        minimizable: false,
+        maximizable: false,
+        closable: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    })
+
+    startupWin.loadURL(`file://${__dirname}/public/html/startup.html`);
+    startupWinOpen = true;
+
+    startupWin.on('closed', () => {
+        startupWin = null;
+        startupWinOpen = false;
+    })
 }
 
 module.exports.start = (log, db) => {
@@ -30,13 +56,32 @@ module.exports.start = (log, db) => {
         let contextMenu = Menu.buildFromTemplate([
             { label: `Plexcord v${require('./package.json').version}`, type: 'normal', enabled: false},
             { label: 'Settings', type: 'normal', click: () => {
-                settingsWindow();
+                if (!startupWinOpen) {
+                    settingsWindow();
+                } else {
+                    let notification = new Notification({
+                        title: 'Finish Setup',
+                        body: 'Please finish the setup before further configuration.'
+                    });
+                    notification.show();
+                }
             } },
             { label: 'Quit', type: 'normal', click: () => {
                 app.quit();
             } }
         ]);
         tray.setContextMenu(contextMenu);
+
+        if (!db.get("plex-username") || !db.get("plex-client-id") || !db.get("startup") || !db.get("style") || !db.get("pause-timeout")) {
+            log.warn("Invalid or no database. Running through initial setup.");
+            db.set('startup', true);
+            db.set('style', 'music');
+            db.set('plex-username', '');
+            db.set('plex-client-id', '');
+            db.set('pause-timeout', 2);
+            startupWindow();
+        }
+
         log.success('Electron started.')
     })
 
@@ -44,31 +89,13 @@ module.exports.start = (log, db) => {
         log.info('All windows closed.');
     })
 
-    app.on('before-quit', (e) => {
-        let confirm = dialog.showMessageBoxSync(win, {
-            title: 'Are you sure?',
-            detail: 'Are you sure you want to quit Plexcord?',
-            type: 'question',
-            buttons: ["Yes", "No"]
-        });
-
-        if (confirm === 1) {
-            e.preventDefault();
-        }
-    })
-
     ipcMain.on('quit', (event, arg) => {
         app.quit();
     })
 
     ipcMain.on('save', (event, arg) => {
-        db.set('startup', arg.startup);
-        db.set('style', arg.style);
-        db.set('plex-username', arg.username);
-        db.set('plex-client-id', arg.clientId);
-        db.set('pause-timeout', arg.pauseTimeout);
-
-        event.reply('save-reply')
+        db.set(arg.key, arg.value);
+        log.success(`Saved value ${arg.value} in key ${arg.key}.`)
     })
 
     ipcMain.on('get-settings', (event, arg) => {
@@ -98,13 +125,34 @@ module.exports.start = (log, db) => {
     })
 
     ipcMain.on('invalid-config', (event, args) => {
-        let notification = new Notification({
-            title: 'Invalid Configuration',
-            body: 'Something is wrong with your settings. Make sure they are all filled out and are all correct.'
-        });
-        notification.onclick = () => {
-            settingsWindow();
+        if (!startupWinOpen) {
+            let notification = new Notification({
+                title: 'Invalid Configuration',
+                body: 'Something is wrong with your settings. Make sure they are all filled out and are all correct.'
+            });
+            notification.onclick = () => {
+                settingsWindow();
+            }
+            notification.show();
+        } else {
+            return;
         }
-        notification.show();
+    })
+
+    ipcMain.on('recent-id', () => {
+        if (startupWin) {
+            startupWin.webContents.send('id-change', db.get('recent-id'));
+            return;
+        }
+        if (settingsWin) {
+            settingsWin.webContents.send('id-change', db.get('recent-id'));
+            return;
+        }
+    })
+
+    ipcMain.on('startup-closable', () => {
+        if (startupWin) {
+            startupWin.closable = true;
+        }
     })
 }

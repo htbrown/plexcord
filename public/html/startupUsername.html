@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup - Plexcord</title>
+    <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Plex Username</h1>
+            <h3 class="subtitle">Enter the username of the user you would like to track in the box below, then press next.</h3>
+            <div class="field">
+                <div class="control">
+                    <input class="input" type="text" id="plex-username" placeholder="Plex Username">
+                </div>
+            </div>
+            <a onclick="usernameSave()" class="button is-link">Next</a>
+        </div>
+    </section>
+    <script src="../js/index.js"></script>
+    <script src="../js/startupRenderer.js"></script>
+</body>
+</html>
