@@ -20,4 +20,14 @@ autoLaunch.isEnabled().then((isEnabled) => {
     }
 })
 
+let autoLaunchUnsub = db.onDidChange('startup', (oldValue, newValue) => {
+    if (newValue === false) {
+        autoLaunch.enable();
+        log.success('Enabled auto launch.')
+    } else {
+        autoLaunch.disable();
+        log.success('Disabled auto launch.')
+    }
+})
+
 el.start(log, db);
