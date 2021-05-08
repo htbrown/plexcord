@@ -34,7 +34,7 @@ module.exports.start = (log, db) => {
         db.set('recent-id', payload.Player.uuid);
         ipcMain.emit('recent-id');
 
-        if (!db.get('plex-username') || !db.get('plex-client-id') || !db.get('style') || !db.get('startup') || !db.get('pause-timeout')) {
+        if (!db.get('plex-username') || !db.get('plex-client-id') || !db.get('style') || !db.get('pause-timeout')) {
             ipcMain.emit('invalid-config');
             log.error('Invalid config.');
             res.sendStatus(500);

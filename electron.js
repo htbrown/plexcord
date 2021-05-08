@@ -72,7 +72,7 @@ module.exports.start = (log, db) => {
         ]);
         tray.setContextMenu(contextMenu);
 
-        if (!db.get("plex-username") || !db.get("plex-client-id") || !db.get("startup") || !db.get("style") || !db.get("pause-timeout")) {
+        if (!db.get("plex-username") || !db.get("plex-client-id") || !db.get("style") || !db.get("pause-timeout")) {
             log.warn("Invalid or no database. Running through initial setup.");
             db.set('startup', true);
             db.set('style', 'music');
